@@ -5,6 +5,8 @@ html, body {
   margin: 0;
   overflow: hidden;
   background-color: black;
+  font-family: "MozTT", sans-serif;
+  font-size: 10px;
 }
 
 #viewfinder {
@@ -206,7 +208,7 @@ html, body {
 }
 
 /*
- * The overlay is where we display messages like Scanning, No Videos,
+ * The overlay is where we display messages like Scanning, No Photos,
  * No SD card and SD Card in Use along with instructions for resolving
  * the issue.  The user can't interact with the app while the overlay
  * is displayed.
@@ -221,35 +223,43 @@ html, body {
 
   /* almost transparent gray */
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 100;
 }
-
-/*
- * The overlay content area holds the text of the overlay.
- * It has borders and a less transparent background so that
- * the overlay text shows up more clearly
- */
 #overlay-content {
-  margin-top: 30%;
-  margin-left: 10%;
-  margin-right: 10%;
-  padding: 10%;
-  border: solid black 4px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  font-family: "MozTT", sans-serif;
+  background:
+  url(images/ui/pattern.png) repeat left top,
+  url(images/ui/gradient.png) no-repeat left top;
+  background-size: auto auto, 100% 100%;
+  /* We can't use shortand with background size because is not implemented yet:
+  https://bugzilla.mozilla.org/show_bug.cgi?id=570326; */
+  overflow: hidden;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: "MozTT", Sans-serif;
+  font-size: 0;
+  /* Using font-size: 0; we avoid the unwanted visual space (about 3px)
+  created by white-spaces and break lines in the code betewen inline-block elements */
   color: #fff;
-  -moz-user-select: none;
+  padding: 110px 25px 0px 25px;
 }
 
 #overlay-title {
-  text-align: center;
-  font-weight: bold;
-  font-size: 26px;
+  font-weight: normal;
+  text-transform:capitalize;
+  font-size: 1.9rem;
+  color: #fff;
+  margin: 0 5px -10px 5px;
 }
 
 #overlay-text {
-  font-size: 18px;
+  padding: 10px 5px 0 5px;
+  border-top: 1px solid #686868;	
+  font-weight: 300;
+  font-size: 2.5rem;
+  color: #ebebeb;
 }
 
 .hidden {
