@@ -39,7 +39,7 @@ section[role="dialog"] > div {
 section[role="dialog"] h3 {
   font-family: 'MozTT', Sans-serif;
   font-weight: normal;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   line-height: 1em;
   color: #fff;
   border-bottom: 0.1rem solid #686868;
@@ -102,7 +102,7 @@ section[role="dialog"] menu.actions > ul > li > a[role="button"] {
   white-space: nowrap;
   overflow: hidden;
   font-family: 'MozTT', Sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 3.8rem;
   outline: none;
   font-size: 1.4rem;
@@ -128,7 +128,7 @@ section[role="dialog"] menu.actions > ul > li:last-child > button,
 section[role="dialog"] menu.actions > ul > li:last-child > a[role="button"] {
   background: #fafafa url(images/ui/cancel.png) repeat-x left bottom;
   border: 1px solid #9f9f9f;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   color: #333;
   text-align: center;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
