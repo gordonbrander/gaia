@@ -568,7 +568,7 @@ var Browser = {
     url = url.trim();
     // If the address entered starts with a quote then search, if it
     // contains a . or : then treat as a url, else search
-    return /^"|\'/.test(url) || !(/\.|\:/.test(url));
+    return /^"|\'/.test(url) || !(/\.|\:/.test(url)); //"
   },
 
   getUrlFromInput: function browser_getUrlFromInput(url) {
@@ -1131,8 +1131,8 @@ var Browser = {
       tab.dom.style.top = '-999px';
       return;
     }
-    if (tab.dom.setActive) {
-      tab.dom.setActive(visible);
+    if (tab.dom.setVisible) {
+      tab.dom.setVisible(visible);
     }
     if (tab.crashed) {
       this.showCrashScreen();
@@ -1167,6 +1167,7 @@ var Browser = {
 
     iframe.style.top = '-999px';
 
+    iframe.setAttribute('mozasyncpanzoom', 'true');
     // FIXME: content shouldn't control this directly
     iframe.setAttribute('remote', 'true');
 
@@ -1451,7 +1452,7 @@ var Browser = {
   },
 
   handleClearHistory: function browser_handleClearHistory() {
-    var msg = navigator.mozL10n.get('confirm-clear-history');
+    var msg = navigator.mozL10n.get('confirm-clear-browsing-history');
     if (confirm(msg)) {
       Places.clearHistory((function() {
 
@@ -1478,7 +1479,7 @@ var Browser = {
   },
 
   clearPrivateData: function browser_clearPrivateData() {
-    var msg = navigator.mozL10n.get('confirm-clear-private-data');
+    var msg = navigator.mozL10n.get('confirm-clear-cookies-and-stored-data');
     if (confirm(msg)) {
       var request = navigator.mozApps.getSelf();
       request.onsuccess = (function() {
@@ -1706,7 +1707,7 @@ var Utils = {
     span.innerHTML = span.innerHTML.replace(/\s/g, '&nbsp;');
 
     if (escapeQuotes)
-      return span.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+      return span.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#x27;'); //"
     return span.innerHTML;
   }
 };
