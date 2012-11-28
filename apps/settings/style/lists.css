@@ -20,8 +20,8 @@ ul li {
 
 ul li.active,
 ul li:active {
-  background-color: #ddf;
-  color: #222;
+  background-color: #b1f1ff;
+  color: #6a9199;
 }
 
 ul li > a,
