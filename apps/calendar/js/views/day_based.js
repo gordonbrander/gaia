@@ -494,6 +494,47 @@ Calendar.ns('Views').DayBased = (function() {
 
     },
 
+    scrollFirstEventIntoView: function() {
+      var busytimes = this.controller.queryCache(this.timespan);
+
+      // keep local record of original
+      // token if this changes we know
+      // we have switched dates.
+      var token = this._changeToken;
+      var self = this;
+
+      this.controller.findAssociated(busytimes, function(err, list) {
+        if (self._changeToken !== token) {
+          // tokens don't match we don't
+          // care about these results anymore...
+          return;
+        }
+
+        var firstStartDate = null;
+
+        list.forEach(function(record) {
+          var hours = hoursOfOccurance(
+            this.date,
+            record.busytime.startDate,
+            record.busytime.endDate
+          );
+
+          if (hours[0] !== 'allday' &&
+            (firstStartDate === null ||
+            firstStartDate > record.busytime.startDate)
+          ) {
+            firstStartDate = record.busytime.startDate;
+          }
+        }, self);
+
+        var hour = firstStartDate !== null ? firstStartDate.getHours() : 8;
+        var hourRecord = self.hours.get(hour);
+        if (hourRecord) {
+          hourRecord.element.scrollIntoView();
+        }
+      });
+    },
+
     /**
      * Changes the date the view cares about
      * in reality we only manage one view at

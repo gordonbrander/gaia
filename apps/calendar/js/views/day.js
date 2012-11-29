@@ -64,6 +64,11 @@ Calendar.ns('Views').Day = (function() {
       );
     },
 
+    changeDate: function(time) {
+      Parent.prototype.changeDate.apply(this, arguments);
+      this.currentFrame.scrollFirstEventIntoView();
+    },
+
     oninactive: function() {
       Parent.prototype.oninactive.apply(this, arguments);
       this.currentFrame = null;
