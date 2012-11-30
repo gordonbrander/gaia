@@ -68,7 +68,7 @@ html, body {
   height: 100%;
 }
 #gallery-button span {
-  background-image: url(images/grid.png);
+  background-image: url(images/iconaction_camera_gridview_30x30.png);
 }
 
 #gallery-button[disabled=disabled] {
@@ -117,19 +117,19 @@ html, body {
 
 /* Swap the camera and video icons depending on mode */
 .video #switch-button span {
-  background-image: url(images/camera.png);
+  background-image: url(images/iconaction_camera_30x30.png);
 }
 
 .camera #switch-button span {
-  background-image: url(images/video.png);
+  background-image: url(images/iconaction_videorecorder_30x30.png);
 }
 
 .camera #capture-button span {
-  background-image: url(images/camera.png);
+  background-image: url(images/iconaction_camera_30x30.png);
 }
 
 .video #capture-button span {
-  background-image: url(images/video.png);
+  background-image: url(images/iconaction_videorecorder_30x30.png);
 }
 
 #film-strip {
@@ -301,21 +301,21 @@ html, body {
 }
 
 #toggle-camera[data-mode=back]:after {
-  background-image: url(images/toggle_front.png);
+  background-image: url(images/iconaction_camera_camerafront_30x30.png);
 }
 #toggle-camera[data-mode=front]:after {
-  background-image: url(images/toggle_back.png);
+  background-image: url(images/iconaction_camera_cameraback_30x30.png);
 }
 
 #toggle-flash[data-mode=on]:after {
-  background-image: url(images/flash_on.png);
+  background-image: url(images/iconaction_flash_flashon_30x30.png);
 }
 #toggle-flash[data-mode=off]:after {
-  background-image: url(images/flash_off.png);
+  background-image: url(images/iconaction_flash_flashoff_30x30.png);
 }
 #toggle-flash[data-mode=auto]:after {
-  background-image: url(images/flash_auto.png);
+  background-image: url(images/iconaction_flash_flashauto_30x30.png);
 }
 #toggle-flash[data-mode=torch]:after {
-  background-image: url(images/flash_torch.png);
+  background-image: url(images/iconaction_flash_flash_torch_30x30.png);
 }
