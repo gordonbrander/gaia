@@ -67,7 +67,7 @@ input[type="image"] {
 }
 
 #tray {
-  font-size: 1.7rem;
+  font-size: 16px;
   -moz-transition: 0.2s ease-in-out;
   position: absolute;
   left: 50px;
@@ -87,7 +87,7 @@ input[type="image"] {
   border: 0;
   color: white;
   background: black;
-  font-size: 1.7rem;
+  font-size: 16px;
   padding: 5px;
   cursor: pointer;
 }
@@ -164,7 +164,7 @@ input[type="image"] {
   width: 50px;
   top: 0;
   background: transparent;
-  font-size: 2.8rem;
+  font-size: 28px;
   color: white;
   padding-bottom: 7px;
 }
@@ -202,7 +202,7 @@ input[type="image"] {
   position: absolute;
   right: 0px;
   top: 0;
-  font-size: 2.3rem;
+  font-size: 22px;
   color: white;
   display: block;
   width: 44px;
@@ -218,7 +218,7 @@ input[type="image"] {
 }
 
 #more-tabs {
-  font-size: 2.8rem;
+  font-size: 1.2em;
 }
 
 #toolbar-start {
@@ -323,7 +323,7 @@ input[type="image"] {
 
 #url-input {
   font-family: 'MozTT', sans-serif;
-  font-size: 1.7rem;
+  font-size: 18px;
   height: 34px;
   -moz-box-flex: 1;
   margin: 0;
@@ -414,7 +414,7 @@ input::-moz-focus-inner {
 }
 
 #awesomescreen, #crashscreen, #startscreen {
-  font-size: 1.7rem;
+  font-size: 16px;
   position: absolute;
   top: 0;
   left: 0;
@@ -439,12 +439,12 @@ input::-moz-focus-inner {
 }
 
 #startscreen h1 {
-  font-size: 2.5rem;
+  font-size: 24px;
   margin: 10px 15px;
 }
 
 #startscreen h2 {
-  font-size: 1.4rem;
+  font-size: 14px;
   margin: 0 0 15px 15px;
 }
 
@@ -485,7 +485,7 @@ input::-moz-focus-inner {
 }
 
 #top-site-thumbnails li span {
-  font-size: 1.4rem;
+  font-size: 12px;
   display: block;
   width: 134px;
   height: 15px;
@@ -517,7 +517,7 @@ input::-moz-focus-inner {
 }
 
 #crashscreen h3 {
-  font-size: 2.1rem;
+  font-size: 2rem;
   font-weight: normal;
 }
 
@@ -527,7 +527,7 @@ input::-moz-focus-inner {
 }
 
 #crashscreen p {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
 }
 
 #crashscreen menu[type="toolbar"] {
@@ -551,7 +551,7 @@ input::-moz-focus-inner {
   background: #fafafa url('images/button-background.png') repeat-x left bottom;
   border: 0.1rem solid #9f9f9f;
   border-radius: 0.3rem;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-family: 'MozTT', Sans-serif;
   line-height: 3.8rem;
   color: #333;
@@ -623,7 +623,7 @@ li[role="tab"] a {
   line-height: 36px;
   text-align: center;
   padding: 0 30px;
-  font-size: 1.4rem;
+  font-size: 14px;
   outline: none;
   margin-left: -30px;
 }
@@ -654,7 +654,7 @@ section[role="tabpanel"].selected {
 }
 
 #awesomescreen h3 {
-  font-size: 1.4rem;
+  font-size: 0.9em;
   margin: 0 10px;
   color: #FF5F19;
   border-bottom: solid 1px #FF5F19;
@@ -698,7 +698,7 @@ li[role="listitem"] h5 {
   overflow: hidden;
   white-space: nowrap;
   pointer-events: none;
-  font-size: 1.4rem;
+  font-size: 14px;
 }
 
 li[role="listitem"] small {
@@ -710,7 +710,7 @@ li[role="listitem"] small {
 }
 
 .highlight {
-  font-weight: 500;
+  font-weight: bold;
   text-decoration: underline;
 }
 
@@ -799,7 +799,7 @@ li[role="listitem"] small {
   color: #4f5357;
   background-repeat: no-repeat;
   background-position: 5px 20px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 #refresh a {
@@ -846,7 +846,7 @@ li[role="listitem"] small {
 }
 
 #settings {
-  font-size: 1.7rem;
+  font-size: 16px;
   position: absolute;
   left: 0px;
   top: 0;
