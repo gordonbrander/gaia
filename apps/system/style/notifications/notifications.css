@@ -32,7 +32,12 @@ html, body {
   width: -moz-calc(100% - 55px);
   height: 19px;
   padding: 0;
-  line-height: 1.9rem;
+
+  line-height: 12px;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #toaster-title {
@@ -47,11 +52,6 @@ html, body {
   position: absolute;
   top: 22px;
   color: white;
-  font-size: 1.4rem;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 #notification-toaster.displayed {
@@ -132,14 +132,24 @@ html, body {
 .notification > div {
   margin: 0 0 0 50px;
   padding: 0;
-  width: -moz-calc(100% - 55px);
-  color: #bfbfbf;
-  font-size: 1.4rem;
-  line-height: 1.9rem;
-  font-weight: 400;
+  width: -moz-calc(100% - 125px);
+  color: #dbdbdb;
+  line-height: 16px;
+  font-weight: 300;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.notification > .timestamp {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #52B6CC;
+  margin: 14px 14px 0 0;
+  padding: 0;
+  display: inline;
+  line-height: 16px;
 }
 
 .notification > img {
