@@ -4,6 +4,7 @@ var contacts = window.contacts || {};
 
 contacts.Details = (function() {
   var photoPos = 7;
+  var initMargin = 16;
   var contactData,
       contactDetails,
       listContainer,
@@ -65,12 +66,12 @@ contacts.Details = (function() {
 
   var initPullEffect = function cd_initPullEffect(cover) {
     cover.addEventListener('mousedown', function(event) {
-      if (event.target != cover || contactDetails.classList.contains('no-photo'))
+      if (contactDetails.classList.contains('no-photo'))
         return;
 
       var startPosition = event.clientY;
       var currentPosition;
-      var initMargin = '8rem';
+      var margin = initMargin + 'rem';
       contactDetails.classList.add('up');
       cover.classList.add('up');
 
@@ -80,7 +81,7 @@ contacts.Details = (function() {
         if (newMargin > 0 && newMargin < 150) {
           contactDetails.classList.remove('up');
           cover.classList.remove('up');
-          var calc = '-moz-calc(' + initMargin + ' + ' + newMargin + 'px)';
+          var calc = 'calc(' + margin + ' + ' + newMargin + 'px)';
           // Divide by 40 (4 times slower and in rems)
           contactDetails.style.transform = 'translateY(' + calc + ')';
           var newPos = (-photoPos + (newMargin / 40)) + 'rem';
@@ -91,14 +92,14 @@ contacts.Details = (function() {
       var onMouseUp = function onMouseUp(event) {
         contactDetails.classList.add('up');
         cover.classList.add('up');
-        contactDetails.style.transform = null;
-        cover.style.transform = null;
-        removeEventListener('mousemove', onMouseMove);
-        removeEventListener('mouseup', onMouseUp);
+        contactDetails.style.transform = 'translateY(' + margin + ')';
+        cover.style.transform = 'translateY(-' + photoPos + 'rem)';
+        cover.removeEventListener('mousemove', onMouseMove);
+        cover.removeEventListener('mouseup', onMouseUp);
       };
 
-      addEventListener('mousemove', onMouseMove);
-      addEventListener('mouseup', onMouseUp);
+      cover.addEventListener('mousemove', onMouseMove);
+      cover.addEventListener('mouseup', onMouseUp);
     });
   };
 
@@ -455,11 +456,18 @@ contacts.Details = (function() {
   };
 
   var renderPhoto = function cd_renderPhoto(contact) {
-    contactDetails.classList.remove('up');
     if (contact.photo && contact.photo.length > 0) {
+      contactDetails.classList.add('up');
+      var clientHeight = contactDetails.clientHeight - (initMargin * 10);
+      if (detailsInner.offsetHeight < clientHeight) {
+        cover.style.overflow = 'hidden';
+      } else {
+        cover.style.overflow = 'auto';
+      }
       Contacts.updatePhoto(contact.photo[0], cover);
     } else {
       cover.style.backgroundImage = '';
+      cover.style.overflow = 'auto';
       contactDetails.style.transform = '';
       contactDetails.classList.add('no-photo');
     }

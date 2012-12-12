@@ -57,7 +57,7 @@ var Contacts = (function() {
           contactsDetails.render(currentContact, TAG_OPTIONS);
           if (params['tel'])
             contactsDetails.reMark('tel', params['tel']);
-          navigation.go(sectionId, 'right-left');
+          navigation.go(sectionId, 'none');
         }, function onError() {
           console.error('Error retrieving contact');
         });
@@ -596,10 +596,6 @@ var Contacts = (function() {
         {
           event: 'focus',
           handler: contacts.Search.enterSearchMode
-        },
-        {
-          event: 'keyup',
-          handler: contacts.Search.search
         }
       ],
       '#details-back': handleBack, // Details
