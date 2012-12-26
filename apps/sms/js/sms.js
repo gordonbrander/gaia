@@ -5,6 +5,7 @@
 
 var MessageManager = {
   init: function mm_init() {
+    this.initialized = true;
     // Init PhoneNumberManager for solving country code issue.
     PhoneNumberManager.init();
     // Init Pending DB. Once it will be loaded will render threads
@@ -143,7 +144,14 @@ var MessageManager = {
             var num = this.getNumFromHash();
             if (num) {
               var filter = this.createFilter(num);
-              this.getMessages(ThreadUI.renderMessages, filter);
+              var typedText = ThreadUI.input.value;
+              this.getMessages(ThreadUI.renderMessages, filter, true,
+                function() {
+                  // Restored previous typed text.
+                  ThreadUI.input.value = typedText;
+                  ThreadUI.input.focus();
+                  ThreadUI.enableSend();
+              });
             }
           }
         }
@@ -539,7 +547,7 @@ var ThreadListUI = {
       }
       // Update threads with 'unread' if some was missing
       for (var i = 0; i < unreadThreads.length; i++) {
-         document.getElementById('thread_' + thread.num).
+         document.getElementById('thread_' + unreadThreads[i]).
                     getElementsByTagName('a')[0].classList.add('unread');
       }
 
@@ -717,6 +725,9 @@ var ThreadUI = {
     return this.sendForm = document.getElementById('new-sms-form');
   },
 
+  // Does the operator force 7-bit encoding
+  is7BitEncoding: false,
+
   init: function thui_init() {
     this.sendButton.addEventListener('click', this.sendMessage.bind(this));
 
@@ -724,17 +735,17 @@ var ThreadUI = {
     this.sendButton.addEventListener('mousedown',
       function btnDown(event) {
         event.preventDefault();
-        event.target.classList.add("active");
+        event.target.classList.add('active');
       }
     );
     this.sendButton.addEventListener('mouseup',
       function btnUp(event) {
-        event.target.classList.remove("active");
+        event.target.classList.remove('active');
       }
     );
     this.sendButton.addEventListener('mouseout',
       function mouseOut(event) {
-        event.target.classList.remove("active");
+        event.target.classList.remove('active');
       }
     );
 
@@ -756,15 +767,23 @@ var ThreadUI = {
     this.editForm.addEventListener('submit', this);
     this.telForm.addEventListener('submit', this);
     this.sendForm.addEventListener('submit', this);
+
+    var self = this;
+    SettingsListener.observe('ril.sms.strict7BitEncoding.enabled',
+                             function onSMSEncodingChange(value) {
+      self.is7BitEncoding = !!value;
+    });
   },
 
   enableSend: function thui_enableSend() {
     if (window.location.hash == '#new' && this.contactInput.value.length == 0) {
       this.sendButton.disabled = true;
+      this.updateCounter();
       return;
     }
 
     this.sendButton.disabled = !(this.input.value.length > 0);
+    this.updateCounter();
   },
 
   scrollViewToBottom: function thui_scrollViewToBottom(animateFromPos) {
@@ -784,6 +803,52 @@ var ThreadUI = {
       }
       view.scrollTop += Math.ceil((height - view.scrollTop) / 2);
     }).bind(this), 100);
+  },
+
+  has7BitOnlyCharacters: function thui_has7BitOnluCharacter(value) {
+    for (var i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) >= 128) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  updateCounter: function thui_updateCount(evt) {
+    var value = this.input.value;
+
+    // In theory the maximum concatenated number of SMS is 255.
+    var kMaxConcatenatedMessages = 255;
+    var excessive = false;
+
+    // A sms can hold 140 bytes of data or 134 bytes of data depending
+    // if it is a single or concatenated sms. To be fun the numbers of
+    // sms also depends on the character encoding of the message.
+    if (this.is7BitEncoding || this.has7BitOnlyCharacters(value)) {
+      var kMaxCharsIfSingle = 160; // (140 * 8) / 7 = 160.
+      var kMaxCharsIfMultiple = 153; // ((140 - 6) / 7 ~= 153.
+    } else {
+      var kMaxCharsIfSingle = 70; // (140 * 8) / 16 = 70.
+      var kMaxCharsIfMultiple = 67; // ((140 - 6) / 16 = 67.
+    }
+
+    var counter = '';
+    var length = value.length;
+    if ((length / kMaxCharsIfSingle) > 1) {
+      var charsLeft = kMaxCharsIfMultiple - (length % kMaxCharsIfMultiple);
+      var smsCount = Math.ceil(length / kMaxCharsIfMultiple);
+      counter = charsLeft + '/' + smsCount;
+
+      // Make sure the current number of sms is not bigger than the maximum
+      // theorical number of sms that can be concatenate.
+      if (smsCount > kMaxConcatenatedMessages) {
+        excessive = true;
+      }
+    }
+
+    this.sendButton.dataset.counter = counter;
+    this.sendButton.disabled = excessive;
   },
 
   updateInputHeight: function thui_updateInputHeight() {
@@ -1564,7 +1629,9 @@ window.addEventListener('resize', function resize() {
 });
 
 window.addEventListener('localized', function showBody() {
-  MessageManager.init();
+  if (!MessageManager.initialized) {
+    MessageManager.init();
+  }
 
   // Set the 'lang' and 'dir' attributes to <html> when the page is translated
   document.documentElement.lang = navigator.mozL10n.language.code;
@@ -1572,7 +1639,7 @@ window.addEventListener('localized', function showBody() {
 });
 
 function showThreadFromSystemMessage(number) {
-  var showAction = function act_action() {
+  var showAction = function act_action(number) {
     var currentLocation = window.location.hash;
     switch (currentLocation) {
       case '#thread-list':
@@ -1585,7 +1652,7 @@ function showThreadFromSystemMessage(number) {
         break;
       case '#edit':
         history.back();
-        showAction();
+        showAction(number);
         break;
       default:
         if (currentLocation.indexOf('#num=') != -1) {
@@ -1608,23 +1675,26 @@ function showThreadFromSystemMessage(number) {
   if (!document.documentElement.lang) {
     window.addEventListener('localized', function waitLocalized() {
       window.removeEventListener('localized', waitLocalized);
-      showAction();
+      showAction(number);
     });
   } else {
     if (!document.mozHidden) {
       // Case of calling from Notification
-      showAction();
+      showAction(number);
       return;
     }
     document.addEventListener('mozvisibilitychange',
       function waitVisibility() {
         document.removeEventListener('mozvisibilitychange', waitVisibility);
-        showAction();
+        showAction(number);
     });
   }
 }
 
 window.navigator.mozSetMessageHandler('activity', function actHandle(activity) {
+  if (!MessageManager.initialized) {
+    MessageManager.init();
+  }
   // XXX This lock is about https://github.com/mozilla-b2g/gaia/issues/5405
   if (MessageManager.lockActivity)
     return;
