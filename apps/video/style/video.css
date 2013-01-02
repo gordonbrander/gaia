@@ -313,10 +313,10 @@ header .icon:after {
   width: 5.9rem;
   position: absolute;
   color: #A1AFB2;
-  font-size: 1.4rem;
   height: 100%;
   line-height: 4.6rem;
   text-align: center;
+  font-size: 1.4rem;
 }
 
 #duration-text {
