@@ -38,6 +38,7 @@
     <link rel="resource" type="application/l10n" href="locales/locales.ini"/>
     <script type="application/javascript" src="shared/js/l10n.js"></script>
     <script type="application/javascript" src="shared/js/l10n_date.js"></script>
+    <script type="application/javascript" defer src="shared/js/mouse_event_shim.js"></script>
     <script type="application/javascript" defer src="shared/js/manifest_helper.js"></script>
 
     <!-- Specific code -->
@@ -1374,7 +1375,7 @@
 
       <div class="passcode-overlay">
         <input type="number" id="passcode-input" />
-        <div class="passcode-container">
+        <div class="passcode-container" id="passcode-container">
           <div class="passcode-error" data-l10n-id="incorrect-passcode" data-type="incorrect">Incorrect passcode!</div>
           <div class="passcode-error" data-l10n-id="passcode-doesnt-match" data-type="mismatch">Passcode doesn't match. Try again!</div>
           <span data-l10n-id="passcode">Passcode</span>
@@ -1762,6 +1763,14 @@
           <a data-l10n-id="macAddress"> MAC address </a>
         </li>
         <li>
+          <small id="deviceInfo-imei"></small>
+          <a data-l10n-id="deviceInfo-IMEI"> IMEI </a>
+        </li>
+        <li>
+          <small id="deviceInfo-iccid"></small>
+          <a data-l10n-id="deviceInfo-ICCID"> ICCID </a>
+        </li>
+        <li>
           <small data-name="deviceinfo.platform_version"></small>
           <a data-l10n-id="platform_version"> Platform Version </a>
         </li>
@@ -1929,6 +1938,10 @@
       </header>
       <ul>
         <li>
+          <small id="deviceInfo-msisdn"></small>
+          <a data-l10n-id="deviceInfo-MSISDN"> Phone number </a>
+        </li>
+        <li>
           <small data-name="deviceinfo.hardware"></small>
           <a id="model-name" data-l10n-id="model-name"> Model </a>
         </li>
@@ -1968,7 +1981,7 @@
         </li>
         <li id="update-status" class="description update-status">
           <p class="description general-information"
-              data-l10n-id="checking-for-update">Checking for updates...</p>
+              data-l10n-id="checking-for-update">Checking for updates…</p>
           <p class="description system-update-status"></p>
         </li>
       </ul>
@@ -2001,6 +2014,8 @@
           </label>
         </li>
       </ul>
+
+      <script type="application/javascript" src="js/about.js"></script>
       -->
     </section>
 
