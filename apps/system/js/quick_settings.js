@@ -9,8 +9,8 @@ var QuickSettings = {
 
   init: function qs_init() {
     var settings = window.navigator.mozSettings;
-    this.conn = window.navigator.mozMobileConnection;
-    if (!settings || !this.conn)
+    var conn = window.navigator.mozMobileConnection;
+    if (!settings || !conn)
       return;
 
     this.getAllElements();
@@ -33,7 +33,7 @@ var QuickSettings = {
     /*
       * Monitor data network icon
       */
-    this.conn.addEventListener('datachange', function() {
+    conn.addEventListener('datachange', function qs_onDataChange() {
       var label = {
         'lte': '4G', // 4G LTE
         'ehrpd': '4G', // 4G CDMA
@@ -45,7 +45,7 @@ var QuickSettings = {
         'is95a': '2G', 'is95b': '2G', // 2G CDMA
         'gprs': '2G'
       };
-      self.data.dataset.network = label[self.conn.data.type];
+      self.data.dataset.network = label[conn.data.type];
     });
 
     /* monitor data setting
@@ -225,7 +225,7 @@ var QuickSettings = {
       return str.replace(/\-(.)/g, function replacer(str, p1) {
         return p1.toUpperCase();
       });
-    }
+    };
 
     elements.forEach(function createElementRef(name) {
       this[toCamelCase(name)] =
