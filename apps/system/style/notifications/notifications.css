@@ -161,8 +161,8 @@ html, body {
 .notification > img {
   float: left;
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   margin: 15px 10px;
   pointer-events: none;
 }
