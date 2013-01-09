@@ -753,6 +753,11 @@ var WindowManager = (function() {
     evt.initCustomEvent('appwillclose', true, false, { origin: origin });
     closeFrame.dispatchEvent(evt);
 
+    if ('wrapper' in closeFrame.dataset) {
+      wrapperHeader.classList.remove('visible');
+      wrapperFooter.classList.remove('visible');
+    }
+
     transitionCloseCallback = function startClosingTransition() {
       // We have been canceled by another transition.
       if (!closeFrame || transitionCloseCallback != startClosingTransition)
@@ -764,10 +769,6 @@ var WindowManager = (function() {
       // Start the transition
       closeFrame.classList.add('closing');
       closeFrame.classList.remove('active');
-      if ('wrapper' in closeFrame.dataset) {
-        wrapperHeader.classList.remove('visible');
-        wrapperFooter.classList.remove('visible');
-      }
     };
 
     waitForNextPaint(homescreenFrame, transitionCloseCallback);
@@ -899,16 +900,27 @@ var WindowManager = (function() {
     }
   }
 
-  function restoreCurrentApp() {
-    toggleHomescreen(false);
-    var frame = getAppFrame(displayedApp);
-    frame.style.visibility = 'visible';
-    frame.classList.remove('back');
-    frame.classList.add('restored');
-    frame.addEventListener('transitionend', function removeRestored() {
-      frame.removeEventListener('transitionend', removeRestored);
-      frame.classList.remove('restored');
-    });
+  // If app parameter is passed,
+  // it means there's a specific app needs to be restored
+  // instead of current app
+  function restoreCurrentApp(app) {
+    if (app) {
+      // Restore app visibility immediately but don't open it.
+      var frame = getAppFrame(app);
+      frame.style.visibility = 'visible';
+      frame.classList.remove('back');
+    } else {
+      app = displayedApp;
+      toggleHomescreen(false);
+      var frame = getAppFrame(app);
+      frame.style.visibility = 'visible';
+      frame.classList.remove('back');
+      frame.classList.add('restored');
+      frame.addEventListener('transitionend', function removeRestored() {
+        frame.removeEventListener('transitionend', removeRestored);
+        frame.classList.remove('restored');
+      });
+    }
   }
 
   function toggleHomescreen(visible) {
@@ -1252,7 +1264,7 @@ var WindowManager = (function() {
           wrapperFooter.classList.add('visible');
         }
       }
-      screenElement.classList.remove('inline-activity');  
+      screenElement.classList.remove('inline-activity');
     }
   }
 
