@@ -379,6 +379,14 @@
                   <input name="simpukVis" type="text" size="8" maxlength="8" />
                 </div>
               </div>
+              <!-- sim nck input field -->
+              <div id="nckArea" hidden>
+                <div data-l10n-id="nckCode">NCK Code</div>
+                <div class="input-wrapper">
+                  <input name="nckpin" type="number" size="8" maxlength="8" />
+                  <input name="nckpinVis" type="text" size="8" maxlength="8" />
+                </div>
+              </div>
               <!-- new sim pin input field -->
               <div id="newPinArea" hidden>
                 <div data-l10n-id="newSimPinMsg">
@@ -707,20 +715,26 @@
       </form>
 
       <form id="updates-download-dialog" data-type="confirm" role="dialog"
-            data-z-index-level="updates-download-dialog">
+            data-z-index-level="updates-download-dialog" data-nowifi="false" data-edge="false">
         <section>
           <h1>
             Updates
           </h1>
           <ul>
           </ul>
-          <menu>
-            <button id="updates-later-button" type="reset"
-                    data-l10n-id="later">Later</button>
-            <button id="updates-download-button" type="submit"
-              data-l10n-id="download">Download</button>
-          </menu>
         </section>
+        <p id="updates-no-wifi-warning"
+            data-l10n-id="downloadNoWifiWarning">
+        </p>
+        <p id="updates-edge-warning"
+            data-l10n-id="downloadEdgeWarning">
+        </p>
+        <menu>
+          <button id="updates-later-button" type="reset"
+                  data-l10n-id="later">Later</button>
+          <button id="updates-download-button" type="submit"
+            data-l10n-id="download">Download</button>
+        </menu>
       </form>
 
       <div id="lockscreen-camera" data-z-index-level="lockscreen-camera"></div>
