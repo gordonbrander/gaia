@@ -332,7 +332,7 @@ onLocalized(function wifiSettings() {
 
             // put connected network on top of list
             if (isConnected(network)) {
-              listItem.classList.add('active');
+              listItem.classList.add('connected');
               listItem.querySelector('small').textContent =
                   _('shortStatus-connected');
               list.insertBefore(listItem, infoItem.nextSibling);
@@ -368,14 +368,14 @@ onLocalized(function wifiSettings() {
     function display(network, message) {
       var key = network.ssid + '+' + network.capabilities.join('+');
       var listItem = index[key];
-      var active = list.querySelector('.active');
+      var active = list.querySelector('.connected');
       if (active && active != listItem) {
-        active.classList.remove('active');
+        active.classList.remove('connected');
         active.querySelector('small').textContent =
             _('shortStatus-disconnected');
       }
       if (listItem) {
-        listItem.classList.add('active');
+        listItem.classList.add('connected');
         listItem.querySelector('small').textContent = message;
       }
     }
