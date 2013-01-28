@@ -371,7 +371,8 @@
             <input type="checkbox" data-type="switch" data-setting="ril.cf.notreachable.enabled"/>
             <span></span>
           </label>
-          <a data-l10n-id="callForwardingNotReachable"> Forward when unreachable </a>
+          <small data-l10n-id="callForwardingNotReachableShort">When unreachable</small>
+          <a data-l10n-id="callForwardingForward">Forward</a>
         </li>
       </ul>
       -->
@@ -398,7 +399,8 @@
             <input type="checkbox" data-type="switch" data-setting="ril.cf.noreply.enabled"/>
             <span></span>
           </label>
-          <a data-l10n-id="callForwardingNoReply"> Forward when unanswered </a>
+          <small data-l10n-id="callForwardingNoReplyShort">When unanswered</small>
+          <a data-l10n-id="callForwardingForward">Forward</a>
         </li>
       </ul>
       -->
@@ -425,7 +427,8 @@
             <input type="checkbox" data-type="switch" data-setting="ril.cf.mobilebusy.enabled"/>
             <span></span>
           </label>
-          <a data-l10n-id="callForwardingMobileBusy"> Forward when busy </a>
+          <small data-l10n-id="callForwardingMobileBusyShort">When busy</small>
+          <a data-l10n-id="callForwardingForward">Forward</a>
         </li>
       </ul>
       -->
@@ -452,7 +455,8 @@
             <input type="checkbox" data-type="switch" data-setting="ril.cf.unconditional.enabled"/>
             <span></span>
           </label>
-          <a data-l10n-id="callForwardingUnconditional">Always forward</a>
+          <small data-l10n-id="callForwardingUnconditionalShort">Always</small>
+          <a data-l10n-id="callForwardingForward">Forward</a>
         </li>
       </ul>
       -->
@@ -733,6 +737,29 @@
       -->
     </section>
 
+    <!-- Connectivity :: Cellular & Data :: Data Connection Warnings -->
+    <section role="region" id="carrier-dc-warning">
+      <!--
+      <form role="dialog" data-type="confirm">
+        <section>
+          <h1>
+            <span data-l10n-id="dataConnection-warning-head">Turn ON data connection?</span>
+          </h1>
+          <p>
+            <small data-l10n-id="dataConnection-warning-message">
+              Applications will automatically fetch data via data connection
+               when required. Additional data charges may apply.
+            </small>
+          </p>
+        </section>
+        <menu>
+          <button type="reset" data-l10n-id="dataConnection-warning-notNow">Not now</button>
+          <button type="submit" class="recommend" data-l10n-id="dataConnection-warning-turnOn">Turn ON</button>
+        </menu>
+      </form>
+      -->
+    </section>
+
     <!-- Connectivity :: Cellular & Data -->
     <section role="region" id="carrier">
       <!--
@@ -759,6 +786,8 @@
           </label>
           <small id="dataConnection-desc"></small>
           <a data-l10n-id="dataConnection">Data Connection</a>
+        </li>
+        <li id="dataConnection-expl" class="explanation" hidden>
         </li>
         <li>
           <label>
@@ -800,7 +829,7 @@
           </label>
         </li>
       </ul>
-
+      
       <script type="application/javascript" defer src="js/carrier.js"></script>
       -->
     </section>
@@ -1185,7 +1214,7 @@
         <h1 data-l10n-id="dateAndTime"> Date &amp; Time </h1>
       </header>
 
-      <ul id="time-auto" data-state="auto">
+      <ul id="time-auto" data-state="auto" hidden>
         <li>
           <label>
             <input type="checkbox" data-type="switch" name="time.nitz.automatic-update.enabled"/>
@@ -1618,8 +1647,31 @@
           App permissions
         </h1>
       </header>
+
+      <ul></ul>
+
       <ul>
+        <li>
+          <button id="clear-bookmarks-app" class="icon icon-dialog"
+                  style="visibility: hidden"
+                  data-l10n-id="clearBookmarkAppsData">
+            Clear bookmarks data
+          </button>
+        </li>
       </ul>
+
+      <form role="dialog" data-type="confirm" hidden class="cb-alert">
+        <section>
+          <h1 data-l10n-id="confirmClearBookmarkAppsDataTitle">Clear private data from bookmarks</h1>
+          <p>
+            <strong data-l10n-id="confirmClearBookmarkAppsDataDesc">This clear private data from bookmarks that have been added to the home screen. This cannot be undone.</strong>
+          </p>
+        </section>
+        <menu>
+          <button class="cb-alert-cancel" data-l10n-id="cancel">Cancel</button>
+          <button class="cb-alert-clear recommend danger" data-l10n-id="clear">Clear</button>
+        </menu>
+      </form>
 
       <script type="application/javascript" src="js/hiddenapps.js"></script>
       <script type="application/javascript" src="js/apps.js"></script>
@@ -1899,7 +1951,7 @@
       </header>
       <ul>
         <li>
-          <a class="privacy-menuitem privacy-browserOS" href="https://www.mozilla.org/legal/privacy/firefox.html" data-l10n-id="brandShortName">B2G OS</a>
+          <a class="privacy-menuitem privacy-browserOS" href="https://www.mozilla.org/privacy/firefox-os/" data-l10n-id="brandShortName">B2G OS</a>
         </li>
         <li>
           <a class="privacy-menuitem privacy-marketPlace" href="https://marketplace.firefox.com/privacy-policy">Marketplace</a>
@@ -2360,6 +2412,7 @@
           <h1 data-l10n-id="message">Message</h1>
           <p id="icc-stk-alert-msg">
           </p>
+          <button data-l10n-id="close" id="icc-stk-alert-btn_close">Close</button>
         </section>
         <menu>
           <button data-l10n-id="back" id="icc-stk-alert-btn_back">Back</button>
