@@ -305,8 +305,15 @@ var ApplicationsList = {
     var _ = navigator.mozL10n.get;
 
     var item = document.createElement('li');
-    var content = document.createElement('span');
+    var content = document.createElement('p');
     content.textContent = _('perm-' + perm.replace(':', '-'));
+
+    var fakeSelectHolder = document.createElement('p');
+    fakeSelectHolder.className = 'fake-select';
+
+    var fakeButton = document.createElement('button');
+    fakeButton.className = 'icon icon-dialog';
+    fakeButton.textContent = value;
 
     var select = document.createElement('select');
     select.dataset.perm = perm;
@@ -334,8 +341,10 @@ var ApplicationsList = {
       select.focus();
     };
 
-    content.appendChild(select);
+    fakeSelectHolder.appendChild(fakeButton);
+    fakeSelectHolder.appendChild(select);
     item.appendChild(content);
+    item.appendChild(fakeSelectHolder);
     this.detailPermissionsList.appendChild(item);
   },
 
