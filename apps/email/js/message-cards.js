@@ -902,7 +902,9 @@ MessageReaderCard.prototype = {
   postInsert: function() {
     // iframes need to be linked into the DOM tree before their contentDocument
     // can be instantiated.
-    this.buildBodyDom(this.domNode);
+    App.loader.load('js/iframe-shims.js', function() {
+      this.buildBodyDom(this.domNode);
+    }.bind(this));
   },
 
   onBack: function(event) {
@@ -939,9 +941,9 @@ MessageReaderCard.prototype = {
       { // Confirm
         id: 'msg-delete-ok',
         handler: function() {
-          Cards.removeCardAndSuccessors(this.domNode, 'animate');
           var op = this.header.deleteMessage();
           Toaster.logMutation(op, true);
+          Cards.removeCardAndSuccessors(this.domNode, 'animate');
         }.bind(this)
       },
       { // Cancel
@@ -964,9 +966,9 @@ MessageReaderCard.prototype = {
   onMove: function() {
     //TODO: Please verify move functionality after api landed.
     Cards.folderSelector(function(folder) {
-      Cards.removeCardAndSuccessors(this.domNode, 'animate');
       var op = this.header.moveMessage(folder);
       Toaster.logMutation(op, true);
+      Cards.removeCardAndSuccessors(this.domNode, 'animate');
     }.bind(this));
   },
 
