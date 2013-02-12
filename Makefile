@@ -273,6 +273,46 @@ contacts: install-xulrunner-sdk
 # Create webapps
 offline: webapp-manifests webapp-optimize webapp-zip optimize-clean
 
+# Create a light reference workload
+.PHONY: reference-workload-light
+reference-workload-light:
+	@echo "Populate Databases - Light Workload"
+	$(ADB) shell stop b2g
+	$(ADB) push  test_media/reference-workload/contactsDb-200.sqlite /data/local/indexedDB/chrome/3406066227csotncta.sqlite
+	$(ADB) push  test_media/reference-workload/smsDb-200.sqlite /data/local/indexedDB/chrome/226660312ssm.sqlite
+	$(ADB) shell start b2g
+	@echo "Done"
+
+# Create a medium reference workload
+.PHONY: reference-workload-medium
+reference-workload-medium:
+	@echo "Populate Databases - Medium Workload"
+	$(ADB) shell stop b2g
+	$(ADB) push  test_media/reference-workload/contactsDb-500.sqlite /data/local/indexedDB/chrome/3406066227csotncta.sqlite
+	$(ADB) push  test_media/reference-workload/smsDb-500.sqlite /data/local/indexedDB/chrome/226660312ssm.sqlite
+	$(ADB) shell start b2g
+	@echo "Done"
+
+# Create a heavy reference workload
+.PHONY: reference-workload-heavy
+reference-workload-heavy:
+	@echo "Populate Databases - Heavy Workload"
+	$(ADB) shell stop b2g
+	$(ADB) push  test_media/reference-workload/contactsDb-1000.sqlite /data/local/indexedDB/chrome/3406066227csotncta.sqlite
+	$(ADB) push  test_media/reference-workload/smsDb-1000.sqlite /data/local/indexedDB/chrome/226660312ssm.sqlite
+	$(ADB) shell start b2g
+	@echo "Done"
+
+# Create an extra heavy reference workload
+.PHONY: reference-workload-x-heavy
+reference-workload-x-heavy:
+	@echo "Populate Databases - Extra Heavy Workload"
+	$(ADB) shell stop b2g
+	$(ADB) push  test_media/reference-workload/contactsDb-2000.sqlite /data/local/indexedDB/chrome/3406066227csotncta.sqlite
+	$(ADB) push  test_media/reference-workload/smsDb-2000.sqlite /data/local/indexedDB/chrome/226660312ssm.sqlite
+	$(ADB) shell start b2g
+	@echo "Done"
+
 
 # The install-xulrunner target arranges to get xulrunner downloaded and sets up
 # some commands for invoking it. But it is platform dependent
@@ -403,9 +443,22 @@ ifeq ($(TESTS),)
 		TESTS=$(shell find apps -name "*_test.js" -type f | grep integration)
 	endif
 endif
+
+ifneq ($(APP),)
+	TESTS_PERF=$(shell find apps/$(APP)/test/performance/ -name "*_test.js" -type f )
+else
+	TESTS_PERF=$(shell find apps -name "*_test.js" -type f | grep performance)
+endif
+
 .PHONY: test-integration
 test-integration:
+	adb forward tcp:2828 tcp:2828
 	@./tests/js/bin/runner $(TESTS)
+
+.PHONY: test-perf
+test-perf:
+	adb forward tcp:2828 tcp:2828
+	REPORTER=JSONMozPerf ./tests/js/bin/runner $(TESTS_PERF)
 
 .PHONY: tests
 tests: webapp-manifests offline
