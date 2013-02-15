@@ -76,7 +76,7 @@ contacts.Settings = (function() {
         fbGetTotals(false);
       });
 
-      document.addEventListener('fb_token_ready', function onFbCTokenReady(evt) {
+      document.addEventListener('fb_token_ready', function onTokenReady(evt) {
         // We just received an event saying we imported the contacts
         fb.utils.getImportChecked(checkFbImported);
       });
@@ -263,15 +263,16 @@ contacts.Settings = (function() {
   }
 
   function doFbUnlink() {
-    utils.overlay.show(_('cleaningFbData'));
+    var progressBar = Contacts.showOverlay(_('cleaningFbData'), 'progressBar');
     var wakeLock = navigator.requestWakeLock('cpu');
 
     var req = fb.utils.clearFbData();
 
     req.onsuccess = function() {
       var cleaner = req.result;
+      progressBar.setTotal(cleaner.lcontacts.length);
       cleaner.onsuccess = function() {
-        Contacts.showOverlay(_('loggingOutFb'));
+        Contacts.showOverlay(_('loggingOutFb'), 'activityBar');
         var logoutReq = fb.utils.logout();
 
         logoutReq.onsuccess = function() {
@@ -287,20 +288,18 @@ contacts.Settings = (function() {
           window.asyncStorage.removeItem(fb.utils.LAST_UPDATED_KEY);
           window.asyncStorage.removeItem(fb.utils.CACHE_FRIENDS_KEY);
 
-          contacts.List.load();
           resetWait(wakeLock);
         };
 
         logoutReq.onerror = function(e) {
-          contacts.List.load();
           resetWait(wakeLock);
           window.console.error('Contacts: Error while FB logout: ',
-                              e.target.error.name);
+                              e.target.error);
         };
       };
 
       cleaner.oncleaned = function(num) {
-        // Nothing done here for the moment
+        progressBar.update();
       };
 
       cleaner.onerror = function(contactid, error) {
@@ -328,7 +327,9 @@ contacts.Settings = (function() {
 
   // Import contacts from SIM card and updates ui
   var onSimImport = function onSimImport(evt) {
-    var progress = Contacts.showOverlay(_('simContacts-importing'), true);
+    var progress = Contacts.showOverlay(_('simContacts-reading'),
+                                        'activityBar');
+
     var wakeLock = navigator.requestWakeLock('cpu');
 
     var importer = new SimContactsImporter();
@@ -339,14 +340,13 @@ contacts.Settings = (function() {
 
     importer.onread = function import_read(n) {
       totalContactsToImport = n;
+      progress.setClass('progressBar');
+      progress.setHeaderMsg(_('simContacts-importing'));
       progress.setTotal(totalContactsToImport);
     };
 
     importer.onfinish = function import_finish() {
       window.setTimeout(function onfinish_import() {
-        if (totalContactsToImport > 0) {
-          contacts.List.load();
-        }
         resetWait(wakeLock);
         Contacts.navigation.home();
         Contacts.showStatus(_('simContacts-imported3',
