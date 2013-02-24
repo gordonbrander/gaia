@@ -73,20 +73,23 @@ input:focus:invalid {
 
 
 .sup-progress-region {
-  padding: 0 5%;
-  position: absolute;
-  top: 40%;
-  width: 90%;
+  width: calc(100% - 3rem);
+  margin: 15rem auto 0;
+  padding-top: 1rem;
   text-align: center;
+  border-top: 0.1rem solid #bdbdbb;
 }
-.sup-progress-spinner {
-  display: block !important;
-  margin: 2rem auto;
-}
+
 .sup-progress-label {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  font-size: 1.5rem;
+  display: inline-block;
+  font-weight: lighter;
+  font-size: 2.4rem;
+  letter-spacing: 0.024rem;
+  word-spacing: 0.1rem;
+}
+
+.sup-progress-spinner {
+  margin: -1rem 1rem 0 !important;
 }
 
 .sup-account-done-label {
