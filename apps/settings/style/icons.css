@@ -231,6 +231,20 @@
   background-image: -moz-image-rect(url(icons/wifi.png), 96, 160, 128, 128);
 }
 
+/* secured networks */
+.wifi-secure:after {
+  content: '\00a0';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: right 4.8rem top 50%;
+  background-image: url(images/wifi_lock.png);
+}
+
 /******************************************************************************
  * Call Settings icons
  */
