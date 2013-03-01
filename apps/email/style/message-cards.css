@@ -226,8 +226,8 @@ input.msg-search-text-tease {
   margin: calc(0.5rem - 1px) 0;
   min-height: 1.6rem;
   display: inline-block;
-  background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD);
-  border: 1px solid #CCCCCC;
+  background: #F2F2F2;
+  border: 0.5px solid #CCCCCC;
   border-radius: 1rem;
   padding: 0.2rem 0.8rem;
   font-size: 1.2rem;
@@ -238,7 +238,6 @@ input.msg-search-text-tease {
 .msg-peep-content {
 }
 .msg-peep-address {
-  font-style: italic;
 }
 
 .msg-attachment-item {
