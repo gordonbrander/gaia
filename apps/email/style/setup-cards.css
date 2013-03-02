@@ -73,26 +73,25 @@ input:focus:invalid {
 
 .sup-progress-region {
   width: calc(100% - 3rem);
-  margin: 15rem auto 0;
-  padding-top: 1rem;
-  text-align: center;
+  margin: 16rem auto 0;
+  padding-top: 1.2rem;
+  vertical-align: middle;
   border-top: 0.1rem solid #bdbdbb;
 }
 
 .sup-progress-label {
   display: inline-block;
+  width: calc(100% - 8rem);
+  vertical-align: middle;
   font-weight: lighter;
   font-size: 2.4rem;
+  line-height: 3rem;
   letter-spacing: 0.024rem;
   word-spacing: 0.1rem;
 }
 
 .sup-progress-spinner {
-  margin: -1rem 1rem 0 !important;
-}
-
-.card-setup-done .sup-progress-region {
-  text-align: left;
+  margin: 0 0.5rem 0 1.5rem !important;
 }
 
 .card-setup-done .sup-progress-label {
