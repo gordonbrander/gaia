@@ -54,16 +54,15 @@ input.msg-search-text-tease {
   position: relative;
   height: 8rem;
   overflow: hidden;
-  border-bottom: 1px solid lightgray;
-  vertical-align: 0%;
+  border-bottom: 0.1rem solid #bdbdbb;
 }
 .msg-header-item:active {
   background-color: #b1f1ff;
 }
 .msg-header-unread-section {
   position: absolute;
-  left: 1.5rem;
   top: 50%;
+  left: 1rem;
   display: inline-block;
   height: .9rem;
   width: .9rem;
@@ -71,15 +70,15 @@ input.msg-search-text-tease {
   border-radius: 50%;
 }
 .msg-header-unread-section-unread {
-  background-color: #52B6CC;
+  background-color: #53b8cc;
 }
 .msg-header-details-section {
   display: block;
   position: absolute;
   top: 0px;
-  left: 3.8rem;
-  /* 100% - (unread-section) - (icons-section) - (avatar-section) */
-  width: -moz-calc(100% - 4rem - 2rem - 2.8rem);
+  left: 2.8rem;
+  /* 100% - (unread-section) - (icons-section) */
+  width: -moz-calc(100% - 2.8rem - 3rem);
   height: 100%;
   font-size: 1.6rem;
   line-height: 2.0rem;
@@ -149,8 +148,9 @@ input.msg-search-text-tease {
   font-size: 150%;
 }
 .msg-header-star-starred {
-  background: url("images/icons/message-list-star.png") no-repeat scroll center transparent;
+  background: url("images/icons/message-list-star.png") no-repeat 50% 50%;
   position: absolute;
+  right: -2rem;
   width: 2rem;
   height: 2rem;
   top: 3rem;
@@ -159,8 +159,9 @@ input.msg-search-text-tease {
   display: block;
 }
 .msg-header-attachments-yes {
-  background: url("images/icons/message-list-attachment.png") no-repeat scroll center transparent;
+  background: url("images/icons/message-list-attachment.png") no-repeat 50% 50%;
   position: absolute;
+  right: -2rem;
   width: 2rem;
   height: 2rem;
   top: 5rem;
