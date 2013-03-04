@@ -21,7 +21,7 @@ input:focus:invalid {
 
 
 .sup-form {
-  margin: 1rem 2rem;
+  margin: 1.5rem;
 }
 
 .sup-manual-prompt {
@@ -42,10 +42,11 @@ input:focus:invalid {
   width: calc(100% - 3rem);
 }
 
-.sup-form-link {
+.sup-manual-config-btn {
+  display: inline-block;
   color: black;
   font-size: 1.4rem;
-  line-height: 3.8rem;
+  line-height: 1.2rem;
   margin: 1.5rem 3rem;
 }
 
