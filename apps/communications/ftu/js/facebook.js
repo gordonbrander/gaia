@@ -27,7 +27,14 @@ var FacebookIntegration = {
 
   get liveImportButton() {
     delete this.liveImportButton;
-    return this.liveImportButton = document.getElementById('live-import-button');
+    return this.liveImportButton =
+      document.getElementById('live-import-button');
+  },
+
+  get gmailImportButton() {
+    delete this.gmailImportButton;
+    return this.gmailImportButton =
+      document.getElementById('gmail-import-button');
   },
 
   get noNetworkMsg() {
@@ -56,6 +63,7 @@ var FacebookIntegration = {
   init: function fb_init() {
     this.fbImportButton.addEventListener('click', this);
     this.liveImportButton.addEventListener('click', this);
+    this.gmailImportButton.addEventListener('click', this);
     document.addEventListener('fb_imported', this);
   },
 
@@ -67,6 +75,9 @@ var FacebookIntegration = {
         }
         else if (event.target === this.liveImportButton) {
           FbLauncher.start('live');
+        }
+        else if (event.target === this.gmailImportButton) {
+          FbLauncher.start('gmail');
         }
         break;
       case 'fb_imported':
@@ -141,12 +152,15 @@ var FacebookConfiguration = function FacebookConfiguration() {
   };
 
   var req = utils.config.load('/contacts/config.json');
+  window.config = {};
+
   req.onload = function(configData) {
     if (configData.facebookEnabled === true) {
       enableFacebook();
     } else {
       disableFacebook();
     }
+    window.config.operationsTimeout = configData.operationsTimeout;
   };
   req.onerror = function(code) {
     disableFacebook();
