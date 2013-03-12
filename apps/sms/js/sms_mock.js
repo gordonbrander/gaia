@@ -5,15 +5,7 @@
 *********************************************************** */
 (function(window) {
 
-  var mozSms = window.mozSms = window.navigator.mozSms;
-
-  // Do not stub the navigator.mozSms API if it is already defined (i.e. in B2G
-  // environments)
-  if (mozSms != null) {
-    return;
-  }
-
-  mozSms = window.mozSms = {};
+  var MockNavigatormozSms = window.MockNavigatormozSms = {};
 
   // Fake in-memory message database
   var messagesDb = {
@@ -114,7 +106,7 @@
 
   // Initialize messages with unique IDs
   messagesDb.messages.forEach(function(message) {
-    message.id = messagesDb.Id++;
+    message.id = messagesDb.id++;
   });
 
   // Procedurally generate a large amount of messages for a single thread
@@ -168,7 +160,7 @@
   };
 
   // mozSms API
-  mozSms.addEventListener = function(eventName, handler) {
+  MockNavigatormozSms.addEventListener = function(eventName, handler) {
     var handlers = allHandlers[eventName];
     if (!handlers) {
       handlers = allHandlers[eventName] = [];
@@ -176,7 +168,7 @@
     handlers.push(handler);
   };
 
-  mozSms.send = function(number, text, success, error) {
+  MockNavigatormozSms.send = function(number, text, success, error) {
     var sendId = messagesDb.id++;
     var request = {
       error: null
@@ -251,7 +243,7 @@
   //  - error: Error information, if any (null otherwise)
   //  - onerror: Function that may be set by the suer. If set, will be invoked
   //    in the event of a failure
-  mozSms.getThreadList = function() {
+  MockNavigatormozSms.getThreadList = function() {
     var request = {
       error: null
     };
@@ -293,7 +285,7 @@
   //    invoked in the event of a success
   //  - onerror: Function that may be set by the suer. If set, will be invoked
   //    in the event of a failure
-  mozSms.getMessages = function(filter, reverse) {
+  MockNavigatormozSms.getMessages = function(filter, reverse) {
     var request = {
       error: null
     };
@@ -364,7 +356,7 @@
   //    invoked in the event of a success
   //  - onerror: Function that may be set by the suer. If set, will be invoked
   //    in the event of a failure
-  mozSms.delete = function(id) {
+  MockNavigatormozSms.delete = function(id) {
     var request = {
       error: null
     };
