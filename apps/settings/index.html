@@ -1303,7 +1303,7 @@
         <ul id="time-manual">
           <li>
             <label>
-              <input type="date" id="date-picker" />
+             <input type="date" id="date-picker" min="1970-1-1" max="2037-12-31"/>
             </label>
             <a data-l10n-id="dateMessage">Date <span id="clock-date"></span> </a>
           </li>
@@ -1335,7 +1335,6 @@
           </li>
         </ul>
       </div>
-
       <script src="shared/js/tz_select.js"></script>
       <script src="js/date_time.js"></script>
       <link rel="stylesheet" type="text/css" href="shared/style/buttons.css"/>
